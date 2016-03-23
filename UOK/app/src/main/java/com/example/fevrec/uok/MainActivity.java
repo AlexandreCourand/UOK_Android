@@ -2,15 +2,25 @@ package com.example.fevrec.uok;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
+   EditText pseudo;
+    EditText mdp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pseudo = (EditText) findViewById(R.id.pseudo);
+        mdp = (EditText) findViewById(R.id.password);
+
+
+
     }
 
     @Override
@@ -33,5 +43,20 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean loginOk (){
+
+        String p = String.valueOf(pseudo.getText());
+        String m = String.valueOf(mdp.getText());
+        if(p=="alan"&&m=="turing"){
+           Log.d("Authorized","Authorized");
+            return true;
+        }
+        else {
+            Log.d("Denied","Denied");
+
+            return false;
+        }
     }
 }
