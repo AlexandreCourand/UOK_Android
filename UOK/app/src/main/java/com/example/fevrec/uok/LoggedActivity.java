@@ -47,8 +47,8 @@ public class LoggedActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**public void logout(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    public void create(View v){
+        Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
         startActivity(intent);
-    }*/
+    }
 }

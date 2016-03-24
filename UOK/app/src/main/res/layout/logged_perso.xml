@@ -32,5 +32,6 @@
         android:id="@+id/create_event"
         android:layout_weight="0.10"
         android:background="#ffdb10"
-        android:textSize="@dimen/activity_vertical_margin" />
+        android:textSize="@dimen/activity_vertical_margin"
+        android:onClick="create" />
 </LinearLayout>
