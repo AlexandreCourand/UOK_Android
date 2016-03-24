@@ -19,7 +19,7 @@
 
         <activity
             android:name=".LoggedActivity"
-            android:label="Logged"
+            android:label="UOK"
             android:theme="@style/AppTheme"
             ></activity>
     </application>
