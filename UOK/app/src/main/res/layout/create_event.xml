@@ -4,104 +4,94 @@
     android:layout_height="match_parent"
     android:background="#ffff00">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:text="Nom de l&apos;évènement"
+            android:editable="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/time"
+            android:text="Heure"
+            android:editable="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="54dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/date"
+            android:text="JJ/MM/AAAA"
+            android:editable="true"
+            android:layout_alignTop="@+id/time"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/category"
+            android:editable="true"
+            android:text="Catégorie"
+            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
+            android:layout_marginTop="124dp" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/name"
-                android:text="Nom de l&apos;évènement"
-                android:editable="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:ems="10"
+            android:id="@+id/address"
+            android:text="Adresse"
+            android:editable="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="183dp" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="time"
-                android:ems="10"
-                android:id="@+id/time"
-                android:text="Heure"
-                android:editable="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="54dp" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_below="@+id/deadline"
+            android:layout_alignEnd="@+id/time"
+            android:layout_marginTop="41dp" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/date"
-                android:text="JJ/MM/AAAA"
-                android:editable="true"
-                android:layout_alignTop="@+id/time"
-                android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/deadline"
+            android:editable="true"
+            android:text="date de fin d&apos;inscription"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/category"
-                android:editable="true"
-                android:text="Catégorie"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="124dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Créer"
+            android:id="@+id/create"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="39dp" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:id="@+id/address"
-                android:text="Adresse"
-                android:editable="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="183dp" />
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner"
-                android:layout_below="@+id/deadline"
-                android:layout_alignEnd="@+id/time"
-                android:layout_marginTop="41dp" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/deadline"
-                android:editable="true"
-                android:text="date de fin d&apos;inscription"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Créer"
-                android:id="@+id/create"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="39dp" />
-
-        </RelativeLayout>
-    </ScrollView>
+    </RelativeLayout>
 
 </RelativeLayout>
