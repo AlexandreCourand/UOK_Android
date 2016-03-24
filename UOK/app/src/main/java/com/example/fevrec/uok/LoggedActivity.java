@@ -1,20 +1,19 @@
 package com.example.fevrec.uok;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 
-public class MainActivity extends Activity {
+/**
+ * Created by doualia on 24/03/16.
+ */
+public class LoggedActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.logged_perso);
     }
 
     @Override
@@ -37,26 +36,5 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public void loginOk(View v){
-        EditText pseudo = (EditText) findViewById(R.id.pseudo);
-        EditText mdp = (EditText) findViewById(R.id.password);
-
-        String p = String.valueOf(pseudo.getText());
-        String m = String.valueOf(mdp.getText());
-        if(p.equals("alan")&&m.equals("turing")){
-            System.out.println("ok");
-            Log.d("Authorized","Authorized");
-            Intent intent = new Intent(getApplicationContext(), LoggedActivity.class);
-            startActivity(intent);
-        }
-        else {
-            Log.d("Denied","Denied");
-
-        }
-
-
     }
 }

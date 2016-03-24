@@ -33,11 +33,11 @@
         android:layout_height="wrap_content"
         android:text="OK"
         android:id="@+id/OK"
-        android:hint="OK"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
-        android:onClick="loginOk()" />
+        android:onClick="loginOk" />
 
     <ImageView
         android:layout_width="match_parent"
