@@ -8,6 +8,7 @@ import android.view.MenuItem;
 /**
  * Created by Matthieu on 24/03/2016.
  */
+
 public class CreateActivity extends Activity{
 
     @Override
@@ -31,9 +32,9 @@ public class CreateActivity extends Activity{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
