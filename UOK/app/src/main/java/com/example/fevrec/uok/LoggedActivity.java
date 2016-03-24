@@ -37,6 +37,10 @@ public class LoggedActivity extends Activity {
             startActivity(intent);
         }
 
+        if(id == R.id.profil) {
+            Intent intent = new Intent(getApplicationContext(), Profils.class);
+            startActivity(intent);
+        }
 
 
        /** //noinspection SimplifiableIfStatement
