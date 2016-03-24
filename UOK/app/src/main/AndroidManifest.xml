@@ -19,10 +19,21 @@
         <activity
             android:name=".LoggedActivity"
             android:label="UOK"
+
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Mes_Evenement"
-            android:label="@string/title_activity_mes__evenement"></activity>
+            android:label="@string/title_activity_mes__evenement"
+
+            android:theme="@style/AppTheme"
+        ></activity>
+
+        <activity
+            android:name=".CreateActivity"
+            android:label="UOK"
+            android:theme="@style/AppTheme"
+            ></activity>
+
     </application>
 
 </manifest>
