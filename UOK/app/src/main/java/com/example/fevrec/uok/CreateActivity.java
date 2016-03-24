@@ -4,18 +4,57 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Matthieu on 24/03/2016.
  */
 
-public class CreateActivity extends Activity{
 
+public class CreateActivity extends Activity{
+String item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
-    }
+        List<String> SpinnerArray = new ArrayList<String>();
+        SpinnerArray.add("Item 1");
+        SpinnerArray.add("Item 2");
+        SpinnerArray.add("Item 3");
+        SpinnerArray.add("Item 4");
+        SpinnerArray.add("Item 5");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, SpinnerArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int pos, long id) {
+                // TODO Auto-generated method stub
+               item = (String)arg0.getItemAtPosition(pos);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
