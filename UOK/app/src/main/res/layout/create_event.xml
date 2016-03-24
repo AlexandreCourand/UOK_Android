@@ -14,10 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/name"
-            android:text="Nom de l&apos;évènement"
             android:editable="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:hint="Nom de l&apos;évènement" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -25,11 +25,11 @@
             android:inputType="time"
             android:ems="10"
             android:id="@+id/time"
-            android:text="Heure"
             android:editable="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="54dp" />
+            android:layout_marginTop="54dp"
+            android:hint="Heure" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -37,20 +37,20 @@
             android:inputType="date"
             android:ems="10"
             android:id="@+id/date"
-            android:text="JJ/MM/AAAA"
             android:editable="true"
             android:layout_alignTop="@+id/time"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:hint="JJ/MM/AAAA" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/category"
             android:editable="true"
-            android:text="Catégorie"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="124dp" />
+            android:layout_marginTop="124dp"
+            android:hint="Catégorie" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -58,11 +58,11 @@
             android:inputType="textPostalAddress"
             android:ems="10"
             android:id="@+id/address"
-            android:text="Adresse"
             android:editable="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="183dp" />
+            android:layout_marginTop="183dp"
+            android:hint="Adresse" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -79,9 +79,9 @@
             android:ems="10"
             android:id="@+id/deadline"
             android:editable="true"
-            android:text="date de fin d&apos;inscription"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:hint="date de fin d&apos;inscription" />
 
         <Button
             android:layout_width="wrap_content"
