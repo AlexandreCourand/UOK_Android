@@ -3,6 +3,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+    }
 
     defaultConfig {
         applicationId "com.example.fevrec.uok"
@@ -21,4 +28,16 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+   // compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    //compile 'org.apache.httpcomponents:httpclient:4.5.2'
+    compile files('commons-codec-1.9.jar')
+    compile files('commons-logging-1.2.jar')
+    compile files('fluent-hc-4.5.2.jar')
+    compile files('httpclient-4.5.2.jar')
+    compile files('httpclient-cache-4.5.2.jar')
+    compile files('httpclient-win-4.5.2.jar')
+    compile files('httpcore-4.4.4.jar')
+    compile files('httpmime-4.5.2.jar')
+    compile files('jna-4.1.0.jar')
+    compile files('jna-platform-4.1.0.jar')
 }
