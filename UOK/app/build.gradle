@@ -31,6 +31,7 @@ dependencies {
    // compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     //compile 'org.apache.httpcomponents:httpclient:4.5.2'
     compile 'com.android.volley:volley:1.0.0'
+    compile 'com.google.code.gson:gson:2.6.2'
     compile files('commons-codec-1.9.jar')
     compile files('commons-logging-1.2.jar')
     compile files('fluent-hc-4.5.2.jar')

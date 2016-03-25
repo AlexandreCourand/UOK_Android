@@ -14,19 +14,23 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fevrec.uok.res.User;
+import com.google.gson.Gson;
 
 public class MainActivity extends Activity {
 
-    String URL = "nbeaussart.me:9090/v1/userdb/1";
+    String URL = "http://www.nbeaussart.me:9090/v1/userdb/1";
 
     public void get(){
         RequestQueue queue = Volley.newRequestQueue(this);
-
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String json) {
-                        Log.d("test",json);
+                        Log.d("test", json);
+                        User tmp = new Gson().fromJson(json, User.class);
+                        Log.d("test",tmp.toString());
+                        Log.d("test", new Gson().toJson(tmp));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -42,6 +46,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        get();
     }
 
     @Override
