@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -21,16 +19,17 @@ public class MainActivity extends Activity {
 
     String URL = "http://www.nbeaussart.me:9090/v1/userdb/1";
 
-    public void get(){
+    public User get(){
         RequestQueue queue = Volley.newRequestQueue(this);
+        final User[] tmp = new User[1];
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String json) {
                         Log.d("test", json);
-                        User tmp = new Gson().fromJson(json, User.class);
-                        Log.d("test",tmp.toString());
-                        Log.d("test", new Gson().toJson(tmp));
+                        tmp[0] = new Gson().fromJson(json, User.class);
+                        Log.d("test", tmp[0].toString());
+                        Log.d("test", new Gson().toJson(tmp[0]));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -40,6 +39,7 @@ public class MainActivity extends Activity {
         });
 
         queue.add(stringRequest);
+        return tmp[0];
     }
 
     @Override
