@@ -38,6 +38,11 @@
         <activity android:name=".Profils"
             android:label="UOK"
             android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".CreateAcccount"
+            android:label="UOK"
+            android:theme="@style/AppTheme"
+            ></activity>
     </application>
 
 </manifest>
