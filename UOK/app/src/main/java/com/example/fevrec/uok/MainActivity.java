@@ -9,33 +9,39 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.frenchcomputerguy.rest.PostRequest;
-import com.frenchcomputerguy.rest.Request;
-import com.frenchcomputerguy.utils.JSONElement;
-
-import org.json.JSONException;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends Activity {
+
+    String URL = "nbeaussart.me:9090/v1/userdb/1";
+
+    public void get(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String json) {
+                        Log.d("test",json);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        queue.add(stringRequest);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Map<String, String> param = new HashMap<>();
-        param.put("Test", "this is a test");
-        Request req = new PostRequest("http://httpbin.org/post", param);
-        JSONElement response = req.getResponse();
-        if (response != null) {
-            try {
-                Log.d("gros caca",response.getJSONObject().getJSONObject("headers").getString("Test"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
