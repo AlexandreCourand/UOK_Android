@@ -21,14 +21,14 @@ public class Mes_Evenement extends Activity {
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                afficherEvenement();
+                afficherEvenement(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        }
+        });
 
     }
 
