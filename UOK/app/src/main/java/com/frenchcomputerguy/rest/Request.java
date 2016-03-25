@@ -2,12 +2,16 @@ package com.frenchcomputerguy.rest;
 
 import android.os.AsyncTask;
 
-import com.android.volley.toolbox.Volley;
 import com.frenchcomputerguy.utils.JSONElement;
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -56,7 +60,6 @@ public abstract class Request {
      * @return Response body parsed to json, or null if there was a problem.
      */
     protected JSONElement fetch(final int method) {
-        Volley v; // VOLLEY WORKING !
         try {
             String response = new AsyncTask<String, Void, String>() {
                 @Override
