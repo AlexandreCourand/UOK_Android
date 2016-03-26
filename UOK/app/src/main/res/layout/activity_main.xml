@@ -33,7 +33,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/password"
-        android:hint="**********"
+        android:hint="Mot de passe"
         android:layout_above="@+id/OK"
         android:layout_centerHorizontal="true" />
 
@@ -45,7 +45,8 @@
         android:id="@+id/name"
         android:layout_above="@id/password"
         android:layout_alignStart="@+id/pseudo"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:hint="Nom"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -68,8 +69,6 @@
         android:layout_alignStart="@+id/pseudo"
         android:layout_alignEnd="@+id/pseudo"
         android:layout_above="@+id/pseudo" />
-
-
 
 
 </RelativeLayout>
