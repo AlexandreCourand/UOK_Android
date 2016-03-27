@@ -16,48 +16,58 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
+        android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:hint="price" />
+        android:id="@+id/create_event_name"
+        android:hint="@string/create_event_name"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:hint="Adresse google map" />
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/create_event_price"
+        android:hint="@string/create_event_price" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_event_address"
+        android:hint="@string/create_event_address" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText3"
-        android:hint="Description" />
+        android:id="@+id/create_event_description"
+        android:hint="@string/create_event_description" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText4"
-        android:hint="Date" />
+        android:id="@+id/create_event_date"
+        android:hint="@string/create_event_date"
+        android:focusable="false"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText5"
-        android:hint="Date limite de reponse" />
+        android:id="@+id/create_event_limit_date"
+        android:hint="@string/create_event_limite_date"
+        android:focusable="false"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText6"
-        android:hint="Nombre de place" />
+        android:id="@+id/create_event_limited_place"
+        android:hint="@string/create_event_limited_place" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,9 +80,8 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Switch"
-        android:id="@+id/switch1"
-        android:hint="Defaut modeTime else Rush" />
+        android:text="@string/create_event_switch_rush"
+        android:id="@+id/create_event_switch_rush"/>
 
     <Button
         android:layout_width="wrap_content"

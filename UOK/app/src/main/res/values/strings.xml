@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">"UOK "</string>
+    <string name="app_name">UOK </string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_profils">Profils</string>
@@ -11,8 +11,16 @@
     <string name="account_not_created">Compte non crée</string>
     <string name="title_activity_event_view">Mes évenements</string>
     <string name="cant_fetch_data">Données non accessible</string>
-    <string name="title_activity_create_event">Creation d'événement</string>
+    <string name="title_activity_create_event">Creation d\'événement</string>
     <string name="title_activity_choose_contact">Liste Contact</string>
     <string name="liste_contact_1">Première liste de contact</string>
     <string name="liste_contact_2">Seconde liste de contact</string>
+    <string name="create_event_name">Nom</string>
+    <string name="create_event_price">Prix</string>
+    <string name="create_event_address">Adresse</string>
+    <string name="create_event_description">Description</string>
+    <string name="create_event_date">Date</string>
+    <string name="create_event_limite_date">Date limite</string>
+    <string name="create_event_limited_place">Nombre de place limite</string>
+    <string name="create_event_switch_rush">Rush</string>
 </resources>
