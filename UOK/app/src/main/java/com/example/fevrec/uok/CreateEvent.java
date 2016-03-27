@@ -99,7 +99,7 @@ public class CreateEvent extends AppCompatActivity {
                 Date d = new Date();
                 d.setMonth(Integer.parseInt(dividedDate[0]));
                 d.setDate(Integer.parseInt(dividedDate[1]));
-                d.setYear(Integer.parseInt(dividedDate[2]));
+                d.setYear(Integer.parseInt(dividedDate[2])+2000);
                 d.setHours(Integer.parseInt(dividedDate[3]));
                 d.setMinutes(Integer.parseInt(dividedDate[4]));
                 d.setSeconds(0);
@@ -110,7 +110,7 @@ public class CreateEvent extends AppCompatActivity {
                 dividedDate = s.split("[/]");
                 d.setMonth(Integer.parseInt(dividedDate[0]));
                 d.setDate(Integer.parseInt(dividedDate[1]));
-                d.setYear(Integer.parseInt(dividedDate[2]));
+                d.setYear(Integer.parseInt(dividedDate[2])+2000);
                 d.setHours(Integer.parseInt(dividedDate[3]));
                 d.setMinutes(Integer.parseInt(dividedDate[4]));
                 d.setSeconds(0);
