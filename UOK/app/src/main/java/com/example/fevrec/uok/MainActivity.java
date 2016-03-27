@@ -3,7 +3,6 @@ package com.example.fevrec.uok;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,8 +66,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RequestQueue mRequestQueue = Volley.newRequestQueue(this);
-
         pseudo = (EditText) findViewById(R.id.pseudo);
         name = (EditText) findViewById(R.id.name);
         mdp = (EditText) findViewById(R.id.password);
@@ -125,7 +122,5 @@ public class MainActivity extends Activity {
         });
 
         queue.add(req);
-
-        //Todo l'enregistrement d'un nouvel utilisateur.
     }
 }
