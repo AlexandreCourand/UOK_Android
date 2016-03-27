@@ -2,7 +2,7 @@ package com.example.fevrec.uok.res;
 
 /**
  * Created by badetitou on 27/03/16.
- */
+ **/
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -39,13 +39,11 @@ public class Event {
 
     public Event(){}
 
-    public Event(int id, int onwer, Date date, String description){
+    public Event(int id, int onwer, Date date, String name){
         this.id=id;
         this.date=date;
         this.owner=onwer;
-        this.desciption=description;
-
-
+        this.name=name;
     }
 
     public int getId() {

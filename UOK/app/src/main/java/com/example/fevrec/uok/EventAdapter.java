@@ -2,6 +2,7 @@ package com.example.fevrec.uok;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,12 @@ import android.widget.TextView;
 
 import com.example.fevrec.uok.res.Event;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by badetitou on 27/03/16.
- */
+ **/
 public class EventAdapter extends ArrayAdapter<Event>{
     Context mContext;
     int layoutResourceId;
@@ -49,7 +51,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
         TextView textViewDate = (TextView) convertView.findViewById(R.id.list_event_date);
         TextView textViewName = (TextView) convertView.findViewById(R.id.list_event_name);
         textViewName.setText(objectItem.getName());
-        textViewDate.setTag(objectItem.getDate());
+        textViewDate.setText(DateUtils.getRelativeTimeSpanString(objectItem.getDate().getTime(), new Date().getTime(), DateUtils.DAY_IN_MILLIS));
         return convertView;
     }
 

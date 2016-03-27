@@ -1,7 +1,6 @@
 package com.example.fevrec.uok;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,14 +12,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.fevrec.uok.res.Event;
 import com.example.fevrec.uok.tools.Tools;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class EventView extends Activity {
 
     private void getMyEvents(){
 
-        final String URL = MainActivity.SERVER_URL + "v1/me/myEvent";
+        final String URL = MainActivity.SERVER_URL + "v1/me/myEvents";
         // eventAdapter.notifyDataSetChanged();
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -42,16 +43,27 @@ public class EventView extends Activity {
 
         params.put("Authorization", MainActivity.encodedUser);
 
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONObject>() {
+        final JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                    public void onResponse(JSONArray response) {
+                        for (int i = 0;i<response.length();++i){
+                            try {
+                                JSONObject jsonObject = response.getJSONObject(i);
+
+                                Date date = Tools.parseStringToDate((String)jsonObject.get("date"));
+                                events.add(new Event( jsonObject.getInt("id"), jsonObject.getInt("owner"), date, (String) jsonObject.get("name")));
+                                eventAdapter.notifyDataSetChanged();
+                            } catch (Exception e){
+                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), R.string.cant_fetch_data, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
         }) {
             public Map<String, String> getHeaders() {
