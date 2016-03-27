@@ -1,7 +1,10 @@
 package com.example.fevrec.uok;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EventView extends Activity {
+public class EventView extends AppCompatActivity {
 
     private ListView listView;
     private ArrayAdapter eventAdapter;
@@ -92,6 +95,11 @@ public class EventView extends Activity {
         });
 
         getMyEvents();
+    }
+
+    public void createEvent(View view){
+        Intent intent = new Intent(this, CreateEvent.class);
+        startActivity(intent);
     }
 
 }
