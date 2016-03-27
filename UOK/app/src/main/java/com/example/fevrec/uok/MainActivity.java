@@ -25,6 +25,8 @@ public class MainActivity extends Activity {
 
     public static final String SERVER_URL = "http://10.0.2.2:8080/";
 
+    public static String encodedUser;
+
     private boolean logIn = true;
     private EditText pseudo;
     private EditText name;
@@ -45,6 +47,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Intent intent = new Intent(getApplicationContext(), EventView.class);
+                        encodedUser = "Basic " + Tools.toBase64(pseudo.getText().toString()+":"+mdp.getText().toString());
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
