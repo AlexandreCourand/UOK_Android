@@ -133,15 +133,16 @@ public class ContactPickerMulti extends ListActivity implements View.OnClickList
 
                             }
 
+                            Bundle b=new Bundle();
+                            b.putStringArray("PICK_CONTACT", phoneNumber);
                             Intent pickContactIntent = new Intent();
-                            pickContactIntent.putExtra("PICK_CONTACT", phoneNumber);// Add checked phonenumber in intent and finish current activity.
+                            pickContactIntent.putExtras(b);// Add checked phonenumber in intent and finish current activity.
                             pickContactIntent.putExtra("list", FROM_LIST);
                             setResult(RESULT_OK, pickContactIntent);
                             finish();
                         }
                     }
                 }
-
                 break;
         }
 

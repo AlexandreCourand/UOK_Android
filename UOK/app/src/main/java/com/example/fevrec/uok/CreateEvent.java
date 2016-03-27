@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.fevrec.uok.tools.ContactPickerMulti;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -42,6 +43,9 @@ public class CreateEvent extends AppCompatActivity {
     private EditText address;
     private EditText dateEvent;
     private EditText dateLimite;
+
+    private ArrayList<String> listPrioritairePhone1;
+    private ArrayList<String> listPrioritairePhone2;
 
 
     @Override
@@ -169,7 +173,19 @@ public class CreateEvent extends AppCompatActivity {
         int fromList = data.getIntExtra("list", 0);
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-
+                Bundle b = data.getExtras();
+                String[] array = b.getStringArray("PICK_CONTACT");
+                if (fromList == R.id.button_select_liste_contact_1){
+                    listPrioritairePhone1 = new ArrayList<>();
+                    for(String s: array)
+                        listPrioritairePhone1.add(s);
+                } else if (fromList == R.id.button_select_liste_contact_2){
+                    listPrioritairePhone2 = new ArrayList<>();
+                    for (String s : array)
+                        listPrioritairePhone2.add(s);
+                } else {
+                    Toast.makeText(this, "Erreur impossible, bizarre...", Toast.LENGTH_SHORT).show();
+                }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
