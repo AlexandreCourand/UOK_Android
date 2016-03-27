@@ -1,11 +1,26 @@
 package com.example.fevrec.uok;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Contacts;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseBooleanArray;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.fevrec.uok.tools.ContactPickerMulti;
 
 public class CreateEvent extends AppCompatActivity {
 
@@ -24,6 +39,15 @@ public class CreateEvent extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+
+
+
+
+    public void getInviteList1 (View view){
+        Intent intent = new Intent(this, ContactPickerMulti.class);
+        startActivityForResult(intent,1);
     }
 
 }

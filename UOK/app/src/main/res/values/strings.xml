@@ -13,4 +13,7 @@
     <string name="title_activity_event_view">Mes évenements</string>
     <string name="cant_fetch_data">Données non accessible</string>
     <string name="title_activity_create_event">CreateEvent</string>
+    <string name="title_activity_choose_contact">Liste Contact</string>
+    <string name="liste_contact_1">Première liste de contact</string>
+    <string name="liste_contact_2">Seconde liste de contact</string>
 </resources>

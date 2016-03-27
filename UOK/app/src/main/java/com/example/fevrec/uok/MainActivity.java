@@ -1,10 +1,8 @@
 package com.example.fevrec.uok;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         name = (EditText) findViewById(R.id.name);
         mdp = (EditText) findViewById(R.id.password);
         change = (Button) findViewById(R.id.change);
+
+        pseudo.requestFocus();
     }
 
     public void change(View v){
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        final String URL = SERVER_URL + "v1/userdb";
+        final String URL = SERVER_URL + "v1/user";
     // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<>();
         params.put("name", name.getText().toString());

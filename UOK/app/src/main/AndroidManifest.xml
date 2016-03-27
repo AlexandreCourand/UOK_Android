@@ -3,7 +3,8 @@
     package="com.example.fevrec.uok">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" ></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -25,10 +26,6 @@
             android:label="@string/title_activity_mes_evenement"
             android:theme="@style/MyMaterialTheme" />
         <activity
-            android:name=".CreateActivity"
-            android:label="UOK"
-            android:theme="@style/MyMaterialTheme" />
-        <activity
             android:name=".Profils"
             android:label="UOK"
             android:theme="@style/MyMaterialTheme" />
@@ -40,6 +37,10 @@
             android:name=".CreateEvent"
             android:label="@string/title_activity_create_event"
             android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
+        <activity android:name=".tools.ContactPickerMulti"
+            android:label="@string/title_activity_choose_contact"
+            android:theme="@style/MyMaterialTheme" />
+
     </application>
 
 </manifest>
