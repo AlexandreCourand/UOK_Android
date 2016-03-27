@@ -69,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        //setSupportActionBar(toolbar);
-
         pseudo = (EditText) findViewById(R.id.pseudo);
         name = (EditText) findViewById(R.id.name);
         mdp = (EditText) findViewById(R.id.password);
@@ -104,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     private void register(){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-
         final String URL = SERVER_URL + "v1/user";
     // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<>();

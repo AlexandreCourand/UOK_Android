@@ -1,30 +1,26 @@
-package com.example.fevrec.uok.res;
-
-/**
- * Created by badetitou on 27/03/16.
- **/
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.example.fevrec.uok.res;
+
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-
 import java.util.Date;
-
+import java.util.List;
 
 /**
  *
- * @author ouvryl beaussart
+ * @author ouvryl beaussartcreate_event
  */
 public class Event {
 
     private int id=0;
     private int owner;
-    private String location ;
+    private String location;
     private Date date;
     private String name;
     private Date limiteTime;
@@ -33,9 +29,11 @@ public class Event {
     private boolean isTime;
     private int timeBeforeRush;
     private int cost;
+    private int nmbPlaces;
     private boolean isDone =false;
     private boolean isCanceled =false;
     private String desciption;
+    private List<Invit> invit;
 
     public Event(){}
 
@@ -203,5 +201,13 @@ public class Event {
                 .add("isCanceled", isCanceled)
                 .add("desciption", desciption)
                 .toString();
+    }
+
+    public List<Invit> getInvit() {
+        return invit;
+    }
+
+    public void setInvit(List<Invit> invit) {
+        this.invit = invit;
     }
 }

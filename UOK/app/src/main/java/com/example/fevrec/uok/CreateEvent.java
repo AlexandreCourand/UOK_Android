@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -23,16 +24,37 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.fevrec.uok.res.Invit;
+import com.example.fevrec.uok.res.User;
 import com.example.fevrec.uok.tools.ContactPickerMulti;
+import com.example.fevrec.uok.tools.Tools;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CreateEvent extends AppCompatActivity {
 
@@ -43,6 +65,8 @@ public class CreateEvent extends AppCompatActivity {
     private EditText address;
     private EditText dateEvent;
     private EditText dateLimite;
+    private EditText nbPlaces;
+    private Switch isRush;
 
     private ArrayList<String> listPrioritairePhone1;
     private ArrayList<String> listPrioritairePhone2;
@@ -56,11 +80,102 @@ public class CreateEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        assert fab != null;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Mettre requete ici", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //START
+                RequestQueue queue = Volley.newRequestQueue(CreateEvent.this);
+
+                final String URL = MainActivity.SERVER_URL + "v1/me/event";
+                // Post params to be sent to the server
+                final HashMap<String, String> params = new HashMap<>();
+                params.put("location", address.getText().toString());
+                params.put("name", name.getText().toString());
+
+                //Generation de la date
+                String s = dateEvent.getText().toString().replaceAll(":","/").replaceAll(" ","/");
+                String[] dividedDate = s.split("[/]");
+                Date d = new Date();
+                d.setMonth(Integer.parseInt(dividedDate[0]));
+                d.setDate(Integer.parseInt(dividedDate[1]));
+                d.setYear(Integer.parseInt(dividedDate[2]));
+                d.setHours(Integer.parseInt(dividedDate[3]));
+                d.setMinutes(Integer.parseInt(dividedDate[4]));
+                d.setSeconds(0);
+                //Enfin
+                params.put("date", d.toString());
+
+                s = dateLimite.getText().toString().replaceAll(":","/").replaceAll(" ","/");
+                dividedDate = s.split("[/]");
+                d.setMonth(Integer.parseInt(dividedDate[0]));
+                d.setDate(Integer.parseInt(dividedDate[1]));
+                d.setYear(Integer.parseInt(dividedDate[2]));
+                d.setHours(Integer.parseInt(dividedDate[3]));
+                d.setMinutes(Integer.parseInt(dividedDate[4]));
+                d.setSeconds(0);
+                params.put("limiteTime", d.toString());
+
+                //Enfin
+                params.put("date", d.toString());
+                params.put("isRush",isRush.isChecked() + "");
+                params.put("cost", price.getText().toString());
+                params.put("nmbPlaces", nbPlaces.getText().toString());
+                params.put("desciption", description.getText().toString());
+
+                JSONArray jsonArray = new JSONArray();
+
+                //Les utilisateurs prioritaire
+                for (int i = 0;i<listPrioritairePhone1.size();++i){
+                    Invit invit = new Invit();
+                    invit.setSecondaryList(false);
+                    User user = new User();
+                    user.setTelNumber(listPrioritairePhone1.get(i));
+                    invit.setUserObject(user);
+                    jsonArray.put(new Gson().toJson(invit));
+                }
+                //Les utilisateurs non prioritaire
+                for (int i = 0;i<listPrioritairePhone2.size();++i){
+                    Invit invit = new Invit();
+                    invit.setSecondaryList(true);
+                    User user = new User();
+                    user.setTelNumber(listPrioritairePhone2.get(i));
+                    invit.setUserObject(user);
+                    jsonArray.put(new Gson().toJson(invit));
+                }
+
+                JSONObject object = new JSONObject(params);
+
+                try {
+                    object.put("invit", jsonArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("CreateEvent ::: ", object.toString());
+
+
+                params.put("Authorization", MainActivity.encodedUser);
+
+                JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, object,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+                    public Map<String, String> getHeaders() {
+                        return params;
+                    }
+                };
+
+                queue.add(req);
+
+                //END
             }
         });
 
@@ -98,7 +213,8 @@ public class CreateEvent extends AppCompatActivity {
         address = (EditText) findViewById(R.id.create_event_address);
         dateEvent = (EditText) findViewById(R.id.create_event_date);
         dateLimite = (EditText) findViewById(R.id.create_event_limit_date);
-
+        isRush = (Switch) findViewById(R.id.create_event_switch_rush);
+        nbPlaces = (EditText) findViewById(R.id.create_event_limited_place);
 
         dateEvent.setOnClickListener(new View.OnClickListener() {
 
@@ -132,7 +248,8 @@ public class CreateEvent extends AppCompatActivity {
         mTimePicker = new TimePickerDialog(CreateEvent.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String s = dateEvent.getText().toString() + " " + selectedHour + ":" + selectedMinute;
+                NumberFormat formatter = new DecimalFormat("00");
+                String s = dateEvent.getText().toString() + " " + formatter.format(selectedHour) + ":" + formatter.format(selectedMinute);
                 dateEvent.setText(s);
             }
         }, hour, minute, true);
@@ -151,7 +268,8 @@ public class CreateEvent extends AppCompatActivity {
         mTimePicker = new TimePickerDialog(CreateEvent.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String s = dateLimite.getText().toString() + " " + selectedHour + ":" + selectedMinute;
+                NumberFormat formatter = new DecimalFormat("00");
+                String s = dateLimite.getText().toString() + " " + formatter.format(selectedHour) + ":" + formatter.format(selectedMinute);
                 dateLimite.setText(s);
             }
         }, hour, minute, true);
@@ -187,7 +305,7 @@ public class CreateEvent extends AppCompatActivity {
                     Toast.makeText(this, "Erreur impossible, bizarre...", Toast.LENGTH_SHORT).show();
                 }
             }
-            if (resultCode == Activity.RESULT_CANCELED) {
+            else {
                 //Write your code if there's no result
             }
         }
