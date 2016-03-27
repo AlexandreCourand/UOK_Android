@@ -8,4 +8,6 @@
     <string name="OK">OK</string>
     <string name="register">S\'enregistrer</string>
     <string name="CanLog">J\'ai un compte</string>
+    <string name="wrong_password">mauvais mot de passse</string>
+    <string name="account_not_created">Compte non crée</string>
 </resources>
