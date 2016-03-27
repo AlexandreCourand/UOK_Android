@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:text="@string/liste_contact_1"
         android:id="@+id/button_select_liste_contact_1"
-        android:onClick="getInviteList1"
+        android:onClick="getInviteList"
         />
 
     <Switch
@@ -88,6 +88,6 @@
         android:layout_height="wrap_content"
         android:text="@string/liste_contact_2"
         android:id="@+id/button_select_liste_contact_2"
-        android:onClick="getInviteList1" />
+        android:onClick="getInviteList" />
 
 </LinearLayout>

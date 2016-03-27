@@ -1,5 +1,6 @@
 package com.example.fevrec.uok;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.fevrec.uok.tools.ContactPickerMulti;
 
@@ -155,9 +157,24 @@ public class CreateEvent extends AppCompatActivity {
     }
 
 
-    public void getInviteList1 (View view){
+    public void getInviteList (View view){
         Intent intent = new Intent(this, ContactPickerMulti.class);
+        intent.putExtra("list", view.getId());
         startActivityForResult(intent,1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int fromList = data.getIntExtra("list", 0);
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
 }

@@ -30,7 +30,7 @@ public class ContactPickerMulti extends ListActivity implements View.OnClickList
 
     //Useless but have to be higher than 0
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-
+    private int FROM_LIST;
 
     // List variables
     public String[] Contacts = {};
@@ -46,6 +46,9 @@ public class ContactPickerMulti extends ListActivity implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contacts_multi);
+
+        Intent intent = getIntent();
+        FROM_LIST = intent.getIntExtra("list",0);
 
         // Initializing the buttons according to their ID
         save_button = (Button) findViewById(R.id.contact_done);
@@ -108,7 +111,6 @@ public class ContactPickerMulti extends ListActivity implements View.OnClickList
     }
 
     public void onClick(View src) {
-        Intent i;
         switch (src.getId()) {
             case R.id.contact_done:
 
@@ -133,6 +135,7 @@ public class ContactPickerMulti extends ListActivity implements View.OnClickList
 
                             Intent pickContactIntent = new Intent();
                             pickContactIntent.putExtra("PICK_CONTACT", phoneNumber);// Add checked phonenumber in intent and finish current activity.
+                            pickContactIntent.putExtra("list", FROM_LIST);
                             setResult(RESULT_OK, pickContactIntent);
                             finish();
                         }

@@ -30,8 +30,6 @@ public class EventAdapter extends ArrayAdapter<Event>{
         this.data = data;
     }
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         /*
