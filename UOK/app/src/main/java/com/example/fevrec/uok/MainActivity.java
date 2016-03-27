@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), LoggedActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), EventView.class);
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
@@ -87,10 +87,8 @@ public class MainActivity extends Activity {
 
     public void login(View v){
         if (logIn){
-            Toast.makeText(this,"Do Login", Toast.LENGTH_SHORT).show();
             get();
         } else {
-            Toast.makeText(this, "Do register", Toast.LENGTH_SHORT).show();
             register();
         }
     }
@@ -111,7 +109,7 @@ public class MainActivity extends Activity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), LoggedActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), EventView.class);
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
