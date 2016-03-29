@@ -100,8 +100,10 @@ public class EventView extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "position :" + position, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EventView.this, Mes_Evenement.class);
+                Intent intent = new Intent(getApplicationContext(), Mes_Evenement.class);
                 intent.putExtra("AuthToken",getIntent().getExtras().getString("AuthToken"));
+                intent.putExtra("events",events.toString());
+                intent.putExtra("pos",position);
                 startActivity(intent);
             }
         });

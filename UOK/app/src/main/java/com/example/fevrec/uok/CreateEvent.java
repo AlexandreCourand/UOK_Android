@@ -80,6 +80,7 @@ public class CreateEvent extends AppCompatActivity {
                 params.put("location", address.getText().toString());
                 params.put("name", name.getText().toString());
 
+
                 //Generation de la date
 
                 String s = dateEvent.getText().toString().replaceAll(":", "/").replaceAll(" ", "/");
