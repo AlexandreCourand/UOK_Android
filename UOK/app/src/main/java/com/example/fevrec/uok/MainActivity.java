@@ -23,9 +23,9 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String SERVER_URL = "http://10.0.2.2:8080/";
+    public static final String SERVER_URL = "http://www.nbeaussart.me:8080/";
 
-    public static String encodedUser;
+    public static String authToken;
 
     private boolean logIn = true;
     private EditText pseudo;
@@ -39,15 +39,14 @@ public class MainActivity extends AppCompatActivity {
         final String URL = SERVER_URL + "v1/me";
         // Post params to be sent to the server
         final HashMap<String, String> params = new HashMap<>();
-
-        params.put("Authorization", "Basic " + Tools.toBase64(pseudo.getText().toString()+":"+mdp.getText().toString()));
-
+        authToken = "Basic " + Tools.toBase64(pseudo.getText().toString()+":"+mdp.getText().toString());
+        params.put("Authorization", authToken);
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Intent intent = new Intent(getApplicationContext(), EventView.class);
-                        encodedUser = "Basic " + Tools.toBase64(pseudo.getText().toString()+":"+mdp.getText().toString());
+                        intent.putExtra("AuthToken",authToken);
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {

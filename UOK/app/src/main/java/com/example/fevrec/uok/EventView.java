@@ -3,6 +3,7 @@ package com.example.fevrec.uok;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,14 +41,14 @@ public class EventView extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // Post params to be sent to the server
-        final HashMap<String, String> params = new HashMap<>();
-
-        params.put("Authorization", MainActivity.encodedUser);
-
+        final HashMap<String, String> headers = new HashMap<>();
+        headers.put("Authorization", getIntent().getExtras().getString("AuthToken"));
+        Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("AuthToken"), Toast.LENGTH_LONG).show(); //marche !
         final JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.d("Auth Token : " , MainActivity.authToken);
                         for (int i = 0;i<response.length();++i){
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
@@ -65,10 +66,11 @@ public class EventView extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), R.string.cant_fetch_data, Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("AuthToken"), Toast.LENGTH_LONG).show();
             }
         }) {
             public Map<String, String> getHeaders() {
-                return params;
+                return headers;
             }
         };
 
@@ -97,6 +99,7 @@ public class EventView extends AppCompatActivity {
 
     public void createEvent(View view){
         Intent intent = new Intent(this, CreateEvent.class);
+        intent.putExtra("AuthToken",getIntent().getExtras().getString("AuthToken"));
         startActivity(intent);
     }
 

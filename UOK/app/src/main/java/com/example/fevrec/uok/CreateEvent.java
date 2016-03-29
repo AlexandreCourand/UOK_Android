@@ -3,30 +3,16 @@ package com.example.fevrec.uok;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Contacts;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.SparseBooleanArray;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -36,10 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fevrec.uok.res.Event;
 import com.example.fevrec.uok.res.Invit;
 import com.example.fevrec.uok.res.User;
 import com.example.fevrec.uok.tools.ContactPickerMulti;
-import com.example.fevrec.uok.tools.Tools;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -81,6 +67,7 @@ public class CreateEvent extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         assert fab != null;
+        Toast.makeText(this, getIntent().getExtras().getString("AuthToken"), Toast.LENGTH_SHORT).show(); // OUIIIIIIIIIIIIIi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,23 +81,23 @@ public class CreateEvent extends AppCompatActivity {
                 params.put("name", name.getText().toString());
 
                 //Generation de la date
-                String s = dateEvent.getText().toString().replaceAll(":","/").replaceAll(" ","/");
+                String s = dateEvent.getText().toString().replaceAll(":", "/").replaceAll(" ", "/");
                 String[] dividedDate = s.split("[/]");
                 Date d = new Date();
                 d.setMonth(Integer.parseInt(dividedDate[0]));
                 d.setDate(Integer.parseInt(dividedDate[1]));
-                d.setYear(Integer.parseInt(dividedDate[2])+2000);
+                d.setYear(Integer.parseInt(dividedDate[2]) + 2000);
                 d.setHours(Integer.parseInt(dividedDate[3]));
                 d.setMinutes(Integer.parseInt(dividedDate[4]));
                 d.setSeconds(0);
                 //Enfin
                 params.put("date", d.toString());
 
-                s = dateLimite.getText().toString().replaceAll(":","/").replaceAll(" ","/");
+                s = dateLimite.getText().toString().replaceAll(":", "/").replaceAll(" ", "/");
                 dividedDate = s.split("[/]");
                 d.setMonth(Integer.parseInt(dividedDate[0]));
                 d.setDate(Integer.parseInt(dividedDate[1]));
-                d.setYear(Integer.parseInt(dividedDate[2])+2000);
+                d.setYear(Integer.parseInt(dividedDate[2]) + 2000);
                 d.setHours(Integer.parseInt(dividedDate[3]));
                 d.setMinutes(Integer.parseInt(dividedDate[4]));
                 d.setSeconds(0);
@@ -118,7 +105,7 @@ public class CreateEvent extends AppCompatActivity {
 
                 //Enfin
                 params.put("date", d.toString());
-                params.put("isRush",isRush.isChecked() + "");
+                params.put("isRush", isRush.isChecked() + "");
                 params.put("cost", price.getText().toString());
                 params.put("nmbPlaces", nbPlaces.getText().toString());
                 params.put("desciption", description.getText().toString());
@@ -126,49 +113,78 @@ public class CreateEvent extends AppCompatActivity {
                 JSONArray jsonArray = new JSONArray();
 
                 //Les utilisateurs prioritaire
-                for (int i = 0;i<listPrioritairePhone1.size();++i){
-                    Invit invit = new Invit();
-                    invit.setSecondaryList(false);
-                    User user = new User();
-                    user.setTelNumber(listPrioritairePhone1.get(i));
-                    invit.setUserObject(user);
-                    jsonArray.put(new Gson().toJson(invit));
+                if(listPrioritairePhone1 != null && !listPrioritairePhone1.isEmpty()) {
+                    for (int i = 0; i < listPrioritairePhone1.size(); ++i) {
+                        Invit invit = new Invit();
+                        invit.setSecondaryList(false);
+                        User user = new User();
+                        user.setTelNumber(listPrioritairePhone1.get(i));
+                        invit.setUserObject(user);
+                        jsonArray.put(new Gson().toJson(invit));
+                    }
                 }
                 //Les utilisateurs non prioritaire
-                for (int i = 0;i<listPrioritairePhone2.size();++i){
-                    Invit invit = new Invit();
-                    invit.setSecondaryList(true);
-                    User user = new User();
-                    user.setTelNumber(listPrioritairePhone2.get(i));
-                    invit.setUserObject(user);
-                    jsonArray.put(new Gson().toJson(invit));
+                if(listPrioritairePhone2 != null && !listPrioritairePhone2.isEmpty()) {
+                    for (int i = 0; i < listPrioritairePhone2.size(); ++i) {
+                        Invit invit = new Invit();
+                        invit.setSecondaryList(true);
+                        User user = new User();
+                        user.setTelNumber(listPrioritairePhone2.get(i));
+                        invit.setUserObject(user);
+                        jsonArray.put(new Gson().toJson(invit));
+                    }
                 }
+
+
+
+                Event event = new Event(3,10,new Date(2016,04,28),"fesse");
+                event.setCost(0);
+                event.setDesciption("descr");
+                event.setDone(false);
+                event.setInvit(new ArrayList<Invit>());
+                event.setLimiteTime(new Date(2016, 04, 29));
+                event.setLocation("lille");
+                event.setLock(false);
+                event.setRush(false);
+;
 
                 JSONObject object = new JSONObject(params);
-
                 try {
-                    object.put("invit", jsonArray);
+                    object.put("invit",new Gson().toJson(event.getInvit()));
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.d("erreur",e.toString());
                 }
+                /*try {
+                    object.put("invit", jsonArray);
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }*/
 
                 Log.d("CreateEvent ::: ", object.toString());
 
-
-                params.put("Authorization", MainActivity.encodedUser);
-
+                final HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", getIntent().getExtras().getString("AuthToken"));
                 JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, object,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-
+                                Log.d("response", response.toString());
+                                /*Intent intent = new Intent(getApplicationContext(), EventView.class);
+                                intent.putExtra("AuthToken", getIntent().getExtras().getString("AuthToken"));
+                                startActivity(intent);*/
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("reponse",error.toString());
                     }
                 }) {
                     public Map<String, String> getHeaders() {
+                        return headers;
+                    }
+                    public Map<String, String> getParams() {
                         return params;
                     }
                 };
@@ -282,7 +298,7 @@ public class CreateEvent extends AppCompatActivity {
     public void getInviteList (View view){
         Intent intent = new Intent(this, ContactPickerMulti.class);
         intent.putExtra("list", view.getId());
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
 
     }
 
@@ -290,22 +306,21 @@ public class CreateEvent extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         int fromList = data.getIntExtra("list", 0);
         if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 Bundle b = data.getExtras();
                 String[] array = b.getStringArray("PICK_CONTACT");
-                if (fromList == R.id.button_select_liste_contact_1){
+                if (fromList == R.id.button_select_liste_contact_1) {
                     listPrioritairePhone1 = new ArrayList<>();
-                    for(String s: array)
+                    for (String s : array)
                         listPrioritairePhone1.add(s);
-                } else if (fromList == R.id.button_select_liste_contact_2){
+                } else if (fromList == R.id.button_select_liste_contact_2) {
                     listPrioritairePhone2 = new ArrayList<>();
                     for (String s : array)
                         listPrioritairePhone2.add(s);
                 } else {
                     Toast.makeText(this, "Erreur impossible, bizarre...", Toast.LENGTH_SHORT).show();
                 }
-            }
-            else {
+            } else {
                 //Write your code if there's no result
             }
         }
