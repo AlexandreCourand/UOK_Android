@@ -20,6 +20,7 @@ import com.example.fevrec.uok.res.Event;
 import com.example.fevrec.uok.tools.Tools;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -49,15 +50,23 @@ public class EventView extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d("Auth Token : " , MainActivity.authToken);
-                        for (int i = 0;i<response.length();++i){
+                        for (int i = 0;i<response.length();++i) {
+                            Date date = null;
+                            JSONObject jsonObject = null;
                             try {
-                                JSONObject jsonObject = response.getJSONObject(i);
-
-                                Date date = Tools.parseStringToDate((String)jsonObject.get("date"));
-                                events.add(new Event( jsonObject.getInt("id"), jsonObject.getInt("owner"), date, (String) jsonObject.get("name")));
+                                jsonObject = response.getJSONObject(i);
+                                Log.d("date ici", jsonObject.get("date").toString());
+                                date = Tools.parseStringToDate((String) jsonObject.get("date"));
+                            } catch (Exception e) {
+                                //Toast.makeText(getApplicationContext(), "ici"+ e.toString(), Toast.LENGTH_LONG).show();
+                                date = new Date(2016, 03, 30, 12, 30, 30);
+                            } finally {
+                                try {
+                                    events.add(new Event(jsonObject.getInt("id"), jsonObject.getInt("owner"), date, (String) jsonObject.get("name")));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 eventAdapter.notifyDataSetChanged();
-                            } catch (Exception e){
-                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -65,8 +74,8 @@ public class EventView extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), R.string.cant_fetch_data, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("AuthToken"), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("AuthToken"), Toast.LENGTH_LONG).show();
             }
         }) {
             public Map<String, String> getHeaders() {
@@ -91,6 +100,9 @@ public class EventView extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "position :" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EventView.this, Mes_Evenement.class);
+                intent.putExtra("AuthToken",getIntent().getExtras().getString("AuthToken"));
+                startActivity(intent);
             }
         });
 

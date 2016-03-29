@@ -22,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.fevrec.uok.res.Event;
 import com.example.fevrec.uok.res.Invit;
 import com.example.fevrec.uok.res.User;
 import com.example.fevrec.uok.tools.ContactPickerMulti;
@@ -77,34 +76,39 @@ public class CreateEvent extends AppCompatActivity {
                 final String URL = MainActivity.SERVER_URL + "v1/me/event";
                 // Post params to be sent to the server
                 final HashMap<String, String> params = new HashMap<>();
+                //if(address!=null && address.)
                 params.put("location", address.getText().toString());
                 params.put("name", name.getText().toString());
 
                 //Generation de la date
+
                 String s = dateEvent.getText().toString().replaceAll(":", "/").replaceAll(" ", "/");
                 String[] dividedDate = s.split("[/]");
                 Date d = new Date();
-                d.setMonth(Integer.parseInt(dividedDate[0]));
-                d.setDate(Integer.parseInt(dividedDate[1]));
-                d.setYear(Integer.parseInt(dividedDate[2]) + 2000);
-                d.setHours(Integer.parseInt(dividedDate[3]));
-                d.setMinutes(Integer.parseInt(dividedDate[4]));
-                d.setSeconds(0);
-                //Enfin
-                params.put("date", d.toString());
-
+                if(dividedDate != null && dividedDate.length>0) {
+                    d.setMonth(Integer.parseInt(dividedDate[0]));
+                    d.setDate(Integer.parseInt(dividedDate[1]));
+                    d.setYear(Integer.parseInt(dividedDate[2]) + 100);
+                    d.setHours(Integer.parseInt(dividedDate[3]));
+                    d.setMinutes(Integer.parseInt(dividedDate[4]));
+                    d.setSeconds(0);
+                    //Enfin
+                    params.put("date", d.toString());
+                }
+                /*
                 s = dateLimite.getText().toString().replaceAll(":", "/").replaceAll(" ", "/");
                 dividedDate = s.split("[/]");
-                d.setMonth(Integer.parseInt(dividedDate[0]));
-                d.setDate(Integer.parseInt(dividedDate[1]));
-                d.setYear(Integer.parseInt(dividedDate[2]) + 2000);
-                d.setHours(Integer.parseInt(dividedDate[3]));
-                d.setMinutes(Integer.parseInt(dividedDate[4]));
-                d.setSeconds(0);
-                params.put("limiteTime", d.toString());
+                if(dividedDate != null && dividedDate.length>0) {
+                    d.setMonth(Integer.parseInt(dividedDate[0]));
+                    d.setDate(Integer.parseInt(dividedDate[1]));
+                    d.setYear(Integer.parseInt(dividedDate[2]) + 100);
+                    d.setHours(Integer.parseInt(dividedDate[3]));
+                    d.setMinutes(Integer.parseInt(dividedDate[4]));
+                    d.setSeconds(0);
+                    params.put("limiteTime", d.toString());
+                }*/
 
-                //Enfin
-                params.put("date", d.toString());
+                //params.put("date", new Date(2016,03,30,12,30,30).toString());
                 params.put("isRush", isRush.isChecked() + "");
                 params.put("cost", price.getText().toString());
                 params.put("nmbPlaces", nbPlaces.getText().toString());
@@ -135,22 +139,17 @@ public class CreateEvent extends AppCompatActivity {
                     }
                 }
 
-
-
-                Event event = new Event(3,10,new Date(2016,04,28),"fesse");
-                event.setCost(0);
-                event.setDesciption("descr");
-                event.setDone(false);
-                event.setInvit(new ArrayList<Invit>());
-                event.setLimiteTime(new Date(2016, 04, 29));
-                event.setLocation("lille");
-                event.setLock(false);
-                event.setRush(false);
-;
-
                 JSONObject object = new JSONObject(params);
+
+                ArrayList<User> lit = new ArrayList();
+                User user = new User();
+                user.setTelNumber("123456789");
+                User user2 = new User();
+                user2.setTelNumber("1234567890");
+                lit.add(user2);
+
                 try {
-                    object.put("invit",new Gson().toJson(event.getInvit()));
+                    object.put("invit",new Gson().toJson(new ArrayList<Invit>()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("erreur",e.toString());
@@ -170,15 +169,17 @@ public class CreateEvent extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Log.d("response", response.toString());
-                                /*Intent intent = new Intent(getApplicationContext(), EventView.class);
+                                Intent intent = new Intent(getApplicationContext(), EventView.class);
                                 intent.putExtra("AuthToken", getIntent().getExtras().getString("AuthToken"));
-                                startActivity(intent);*/
+                                startActivity(intent);
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("reponse",error.toString());
+                        Toast.makeText(getApplicationContext(), "Erreur lors de la création d'événement", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), EventView.class);
+                        intent.putExtra("AuthToken", getIntent().getExtras().getString("AuthToken"));
+                        startActivity(intent);
                     }
                 }) {
                     public Map<String, String> getHeaders() {
